@@ -1,0 +1,53 @@
+{
+  "name": "llvm-node",
+  "version": "2.1.1",
+  "description": "Node Bindings for LLVM >=4.0",
+  "author": "Micha Reiser <micha@famreiser.ch>",
+  "repository": "https://github.com/mbrowne/llvm-node.git",
+  "license": "MIT",
+  "main": "index.js",
+  "typings": "./llvm-node.d.ts",
+  "engines": {
+    "node": ">=6.0"
+  },
+  "engineStrict": true,
+  "devDependencies": {
+    "@types/jest": "^25.1.2",
+    "@types/requirejs": "^2.1.31",
+    "generate-changelog": "^1.8.0",
+    "jest": "^25.1.0",
+    "node-gyp": "^6.1.0",
+    "ts-jest": "^25.2.0",
+    "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "bindings": "^1.5.0",
+    "cmake-js": "^6.0.0",
+    "nan": "^2.14.0"
+  },
+  "scripts": {
+    "configure": "cmake-js configure",
+    "build": "cmake-js compile",
+    "install": "cmake-js compile",
+    "clean": "cmake-js clean",
+    "rebuild": "cmake-js rebuild",
+    "pretest": "tsc --strict --noEmit --types . llvm-node.d.ts ",
+    "test": "jest --ci --coverage --runInBand",
+    "test:watch": "jest --watchAll",
+    "release:major": "changelog -M && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin && git push origin --tags",
+    "release:minor": "changelog -m && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version minor && git push origin && git push origin --tags",
+    "release:patch": "changelog -p && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version patch && git push origin && git push origin --tags"
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ]
+  }
+}
